@@ -3,12 +3,12 @@ window.F = function(context, f) {
       toCall = (typeof f == "string" ? context[f] : f);
 
   var full = function() {
-    return F.apply(toCall, context, args);
+    return toCall.apply(context, args);
   };
 
   var partial = function() {
     var additionalArgs = Array.prototype.slice.call(arguments, 0);
-    return F.apply(toCall, context, args.concat(additionalArgs));
+    return toCall.apply(context, args.concat(additionalArgs));
   };
 
   full.partial = partial;
@@ -24,8 +24,3 @@ F.K = function(context, f) {
 F.partial = function() {
   return F.apply(null, arguments).partial;
 };
-
-F.apply = function(f, context, args) {
-  return f.apply(context, args);
-};
-
